@@ -24,7 +24,7 @@ const Form = ({ onSubmit }) => {
   return (
     <form onSubmit={handleSubmit}>
       <div className="input-wrapper">
-      <label htmlFor="email">Email</label>
+        <label htmlFor="email">Email</label>
         <input
           type="email"
           id="email"
@@ -38,6 +38,9 @@ const Form = ({ onSubmit }) => {
         <input
           type="password"
           id="password"
+          name="password"
+          value={password}
+          onChange={handlePasswordChange}
         />
       </div>
       <div className="input-remember">
@@ -48,7 +51,7 @@ const Form = ({ onSubmit }) => {
         Sign In
       </button>
     </form>
-);
-    };
+  );
+};
 
 export default Form;
