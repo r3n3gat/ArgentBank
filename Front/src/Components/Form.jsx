@@ -1,14 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const Form = () => {
+const Form = ({ onSubmit }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-return (
-<form>
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const userData = {
+      email,
+      password,
+    };
+    onSubmit(userData);
+  };
+
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
+
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
       <div className="input-wrapper">
-        <label htmlFor="username">Username</label>
+      <label htmlFor="email">Email</label>
         <input
-          type="text"
-          id="username"
+          type="email"
+          id="email"
+          name="email"
+          value={email}
+          onChange={handleEmailChange}
         />
       </div>
       <div className="input-wrapper">
@@ -26,7 +48,7 @@ return (
         Sign In
       </button>
     </form>
-)
-    }
+);
+    };
 
 export default Form;
