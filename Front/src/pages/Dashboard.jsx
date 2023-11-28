@@ -1,10 +1,15 @@
 import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import Account from "../Components/Account";
+import { setProfileUsername } from "../redux/actions/user";
 
 function Dashboard() {
   const [isEditing, setIsEditing] = useState(false);
+  const [newUsername, setNewUsername] = useState("");
+  const token = useSelector((state) => state.auth.token);
+  const dispatch = useDispatch();
 
   const startEditing = () => {
     setIsEditing(true);
@@ -17,7 +22,11 @@ function Dashboard() {
   const handleFormSubmit = (e) => {
     e.preventDefault();
     // Ajoutez la logique pour gérer la soumission du formulaire ici
+    dispatch(setProfileUsername(token, newUsername));
+    setIsEditing(false);
   };
+  const username = useSelector((state) => state.user.username);
+
   return (
     <>
       <Header />
@@ -26,7 +35,7 @@ function Dashboard() {
           <h1>
             Welcome back
             <br />
-            Tony Jarvis!
+            {username}!
           </h1>
           {isEditing ? null : (
             <button className="edit-button" onClick={startEditing}>
@@ -45,6 +54,8 @@ function Dashboard() {
                 id="username"
                 className="input__wrapper"
                 required="required"
+                value={newUsername}
+                onChange={(e) => setNewUsername(e.target.value)}
               />
             </div>
             <div className="input__wrapper">

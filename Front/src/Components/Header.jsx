@@ -18,6 +18,7 @@ const Header = () => {
 
   useEffect(() => {
     if (token) {
+      // If a token is present, make a api call to obtain the user's username
       const fetchProfile = async () => {
         try {
           const response = await fetch(
@@ -36,9 +37,7 @@ const Header = () => {
             dispatch({
               type: "SET_USER",
               payload: {
-                username: data.body.userName,
-                firstname: data.body.firstName,
-                lastname: data.body.lastName,
+                username: data.body.userName, // Updates the username in the Redux state              },
               },
             });
           } else {
