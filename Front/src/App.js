@@ -1,13 +1,11 @@
-import './App.css';
+import "./App.css";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Profile from "./pages/Dashboard";
+import Error from "./pages/Error";
 
 // Importing routing functions from React Router
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 const router = createBrowserRouter([
   {
@@ -18,17 +16,20 @@ const router = createBrowserRouter([
     path: "/login",
     element: <Login />,
   },
-    {
+  {
     path: "/Profile",
     element: <Profile />,
   },
-
-])
+  {
+    path: "/*",
+    element: <Error />,
+  },
+]);
 
 function App() {
   return (
     <>
-    <RouterProvider router={router}/>
+      <RouterProvider router={router} />
     </>
   );
 }

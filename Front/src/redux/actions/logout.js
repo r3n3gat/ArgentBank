@@ -1,8 +1,7 @@
-
 export const logout = () => {
-    return (dispatch) => {
-        dispatch ({
-            type:"LOGOUT"
-        })
-    }
-}
+  return (dispatch) => {
+    dispatch({
+      type: "LOGOUT",
+    });
+  };
+};
