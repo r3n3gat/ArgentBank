@@ -16,6 +16,7 @@ export const login = (userData) => {
 
       if (response.status === 200) {
         const data = await response.json();
+        const token = data.body.token;
         console.log("Response data:", data); // Affiche les données de la réponse
 
         dispatch({
@@ -24,6 +25,7 @@ export const login = (userData) => {
             token: data.body.token,
           },
         });
+        localStorage.setItem("token", token);
       } else {
         const errorData = await response.json(); // Récupère les détails de l'erreur
         console.log("Error Response:", errorData); // Affiche les détails de l'erreur

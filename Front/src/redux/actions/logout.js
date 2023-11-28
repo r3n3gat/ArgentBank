@@ -3,5 +3,6 @@ export const logout = () => {
     dispatch({
       type: "LOGOUT",
     });
+    localStorage.removeItem("token");
   };
 };
