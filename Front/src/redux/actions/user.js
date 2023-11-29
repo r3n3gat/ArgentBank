@@ -20,11 +20,13 @@ export const setProfileUsername = (token, username) => async (dispatch) => {
     });
 
     if (response.ok) {
+      const data = await response.json();
+      console.log(data);
       dispatch(
         setUser({
-          username: username,
-          firstname: "",
-          lastname: "",
+          username: data.body.userName,
+          firstname: data.body.firstName,
+          lastname: data.body.lastName,
         })
       );
     } else {
