@@ -27,8 +27,8 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         token: null,
-        firstname: action.payload.firstname,
-        lastname: action.payload.lastname,
+        firstname: "",
+        lastname: "",
         error: null,
       };
     default:

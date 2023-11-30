@@ -8,10 +8,16 @@ import { setProfileUsername } from "../redux/actions/user";
 function Dashboard() {
   const [isEditing, setIsEditing] = useState(false);
   const [newUsername, setNewUsername] = useState("");
+  const [firstname, setfirstname] = useState("");
+  const [lastname, setlastname] = useState("");
   const token = useSelector((state) => state.auth.token);
+  const userData = useSelector((state) => state.user); // Récupère les données de l'utilisateur
   const dispatch = useDispatch();
 
   const startEditing = () => {
+    setNewUsername(userData.username); // Initialise avec la valeur actuelle
+    setfirstname(userData.firstname); // Initialise avec la valeur actuelle
+    setlastname(userData.lastname); // Initialise avec la valeur actuelle
     setIsEditing(true);
   };
 
@@ -21,11 +27,11 @@ function Dashboard() {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    // Ajoutez la logique pour gérer la soumission du formulaire ici
     dispatch(setProfileUsername(token, newUsername));
     setIsEditing(false);
   };
-  const username = useSelector((state) => state.user.username);
+
+  const username = userData.username; // Utiliser userData pour obtenir le nom d'utilisateur
 
   return (
     <>
@@ -37,11 +43,11 @@ function Dashboard() {
             <br />
             {username}!
           </h1>
-          {isEditing ? null : (
+          {!isEditing ? (
             <button className="edit-button" onClick={startEditing}>
               Edit Name
             </button>
-          )}
+          ) : null}
         </div>
 
         {isEditing ? (
@@ -58,6 +64,7 @@ function Dashboard() {
                 onChange={(e) => setNewUsername(e.target.value)}
               />
             </div>
+
             <div className="input__wrapper">
               <label htmlFor="firstname">First name</label>
               <input
@@ -65,6 +72,8 @@ function Dashboard() {
                 id="firstname"
                 className="input__wrapper disabled"
                 readOnly="readonly"
+                value={firstname}
+                disabled
               />
             </div>
             <div className="input__wrapper">
@@ -74,6 +83,8 @@ function Dashboard() {
                 id="lastname"
                 className="input__wrapper disabled"
                 readOnly="readonly"
+                value={lastname}
+                disabled
               />
             </div>
             <div className="form--edit__button">
@@ -86,7 +97,6 @@ function Dashboard() {
             </div>
           </form>
         ) : null}
-
         {/* Placer les composants Account ici */}
         <Account title="Argent Bank Checking (x8349)" amount="$2,082.79" />
         <Account title="Argent Bank Savings (x6712)" amount="$10,928.42" />
@@ -96,4 +106,5 @@ function Dashboard() {
     </>
   );
 }
+
 export default Dashboard;

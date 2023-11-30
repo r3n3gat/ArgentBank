@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../redux/actions/logout";
 import logo from "../designs/img/argentBankLogo.png";
@@ -11,9 +11,11 @@ const Header = () => {
   const token = useSelector((state) => state.auth.token);
   const username = useSelector((state) => state.user.username);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     dispatch(logout());
+    navigate("/");
   };
 
   useEffect(() => {
@@ -61,27 +63,28 @@ const Header = () => {
             src={logo}
             alt="Argent Bank Logo"
           />
-          <h1 className="sr-only">Argent Bank</h1>
+          <h1 className="sr-only">Argent Bank</h1>{" "}
         </Link>
-        {token ? ( // if there is a token, show "Sign Out"
-          <Link to="/" onClick={handleLogout} className="main-nav-item">
-            <img
-              src={userCircle}
-              className="user-icon"
-              alt="icone de profil utilisateur"
-            />
-            <span className="user-header">{username}</span>
-            <img src={logoutUser} className="user-icon" alt="icone de logout" />
-            Sign Out
-          </Link>
+        {token ? (
+          // Afficher le profil de l'utilisateur et le bouton de déconnexion
+          <div className="user-logout-container">
+            <div className="user-info">
+              <img src={userCircle} className="user-icon" alt="User Icon" />
+              <span className="user-header">{username}</span>
+            </div>
+            <Link to="/" onClick={handleLogout} className="logout-link">
+              <img
+                src={logoutUser}
+                className="user-icon"
+                alt="icone de logout"
+              />
+              Sign Out
+            </Link>
+          </div>
         ) : (
-          // if no token, show "Sign In"
+          // Afficher le lien pour se connecter
           <Link className="main-nav-item" to="/login">
-            <img
-              src={userCircle}
-              className="user-icon"
-              alt="icone de profil utilisateur"
-            />
+            <img src={userCircle} className="user-icon" alt="User Icon" />
             Sign In
           </Link>
         )}
