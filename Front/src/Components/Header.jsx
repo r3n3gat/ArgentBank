@@ -63,7 +63,7 @@ const Header = () => {
             src={logo}
             alt="Argent Bank Logo"
           />
-          <h1 className="sr-only">Argent Bank</h1>{" "}
+          <h1 className="sr-only">Argent Bank</h1>
         </Link>
         {token ? (
           // Afficher le profil de l'utilisateur et le bouton de déconnexion
@@ -84,7 +84,11 @@ const Header = () => {
         ) : (
           // Afficher le lien pour se connecter
           <Link className="main-nav-item" to="/login">
-            <img src={userCircle} className="user-icon" alt="User Icon" />
+            <img
+              src={userCircle}
+              className="user-icon"
+              alt="icone de profil utilisateur"
+            />
             Sign In
           </Link>
         )}
