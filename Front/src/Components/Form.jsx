@@ -1,10 +1,8 @@
-import PropTypes from "prop-types";
-
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
 const Form = ({ onSubmit }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -54,9 +52,6 @@ const Form = ({ onSubmit }) => {
       </button>
     </form>
   );
-};
-Form.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
 };
 
 export default Form;

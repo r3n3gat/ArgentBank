@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Footer from "../Components/Footer"
 import Header from '../Components/Header';
@@ -9,7 +8,7 @@ import Security from "../designs/img/icon-security.png";
 import Benefit from "../Components/Benefits";
 
 function Home() {
-  const cardsData = [
+    const cardsData = [
     {
       title: "You are our #1 priority",
       content: `Need to talk to a representative? You can get in touch through our

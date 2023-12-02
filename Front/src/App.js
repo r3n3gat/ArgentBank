@@ -1,10 +1,11 @@
-import "./App.css";
+import './App.css';
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Profile from "./pages/Dashboard";
 import Error from "./pages/Error";
-import React, { useEffect } from "react";
+import React, {useEffect} from 'react';
 import store from "./redux/store";
+
 
 // Importing routing functions from React Router
 import {
@@ -12,6 +13,7 @@ import {
   RouterProvider,
   Navigate,
 } from "react-router-dom";
+
 
 const ProtectedRoute = () => {
   const state = store.getState();
@@ -33,33 +35,36 @@ const router = createBrowserRouter([
     path: "/login",
     element: <Login />,
   },
-  {
-    path: "/Profile",
+    {
+    path: "/profile",
     element: <ProtectedRoute />,
   },
-  {
+ {
     path: "/*",
     element: <Error />,
   },
-]);
+
+])
 
 function App() {
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem('token');
     if (token) {
       store.dispatch({
-        type: "LOGIN",
+        type: 'LOGIN',
         payload: {
           token: token,
-        },
+        }
       });
     }
   }, []);
+
   return (
     <>
-      <RouterProvider router={router} />
+    <RouterProvider router={router}/>
     </>
   );
 }
 
 export default App;
+

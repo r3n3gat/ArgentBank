@@ -1,17 +1,17 @@
-// redux/reducers/login.js
 const initialState = {
-  token: null,
+  token: null, //token initially empty
   error: null,
   firstname: "",
   lastname: "",
 };
 
 const authReducer = (state = initialState, action) => {
+  // Use a switch instruction to determine how to update the state according to the action
   switch (action.type) {
     case "LOGIN":
       return {
         ...state,
-        token: action.payload.token,
+        token: action.payload.token, // Update token with new token from action
         firstname: action.payload.firstname,
         lastname: action.payload.lastname,
         error: null,
@@ -19,20 +19,17 @@ const authReducer = (state = initialState, action) => {
     case "AUTH_ERROR":
       return {
         ...state,
+        token: "",
         error: action.payload.error,
-        firstname: action.payload.firstname,
-        lastname: action.payload.lastname,
       };
     case "LOGOUT":
       return {
         ...state,
         token: null,
-        firstname: "",
-        lastname: "",
         error: null,
       };
     default:
-      return state;
+      return state; // Simply returns the current state without modifying it
   }
 };
 

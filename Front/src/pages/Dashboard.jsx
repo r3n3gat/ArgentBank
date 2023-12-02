@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
@@ -7,17 +7,21 @@ import { setProfileUsername } from "../redux/actions/user";
 
 function Dashboard() {
   const [isEditing, setIsEditing] = useState(false);
+  const token = useSelector((state) => state.auth.token);
+  const userData = useSelector((state) => state.user); // Récupère les données de l'utilisateur
   const [newUsername, setNewUsername] = useState("");
   const [firstname, setfirstname] = useState("");
   const [lastname, setlastname] = useState("");
-  const token = useSelector((state) => state.auth.token);
-  const userData = useSelector((state) => state.user); // Récupère les données de l'utilisateur
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    // Mettre à jour les valeurs de firstname et lastname lorsque userData change
+    setfirstname(userData.firstname);
+    setlastname(userData.lastname);
+  }, [userData]);
 
   const startEditing = () => {
     setNewUsername(userData.username); // Initialise avec la valeur actuelle
-    setfirstname(userData.firstname); // Initialise avec la valeur actuelle
-    setlastname(userData.lastname); // Initialise avec la valeur actuelle
     setIsEditing(true);
   };
 
@@ -43,11 +47,11 @@ function Dashboard() {
             <br />
             {username}!
           </h1>
-          {!isEditing ? (
+          {isEditing ? null : (
             <button className="edit-button" onClick={startEditing}>
               Edit Name
             </button>
-          ) : null}
+          )}
         </div>
 
         {isEditing ? (
@@ -97,7 +101,7 @@ function Dashboard() {
             </div>
           </form>
         ) : null}
-        {/* Placer les composants Account ici */}
+
         <Account title="Argent Bank Checking (x8349)" amount="$2,082.79" />
         <Account title="Argent Bank Savings (x6712)" amount="$10,928.42" />
         <Account title="Argent Bank Credit Card (x8349)" amount="$184.30" />
